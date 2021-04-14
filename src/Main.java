@@ -6,19 +6,19 @@ import java.util.concurrent.CyclicBarrier;
 public class Main {
 
 	public static void main(String[] args) {
-
-		CyclicBarrier barreira  = new CyclicBarrier(3);
+		String[] nome_parques = {"Parque A", "Parque B", "Parque C", "Parque D", "Parque E"};
+		String[] nome_turmas = {"Turma 1", "Turma 2", "Turma 3"};
+		int[] tempo_turma = {2000, 4000, 6000};
 		
+		CyclicBarrier barreira = new CyclicBarrier(nome_turmas.length);
+
 		ArrayList<Parque> parques = new ArrayList<Parque>();
-		parques.add(new Parque("Parque A"));
-		parques.add(new Parque("Parque B"));
-		parques.add(new Parque("Parque C"));
-		parques.add(new Parque("Parque D"));
-		parques.add(new Parque("Parque E"));
-
-		new Turma("Turma 1", 5000, parques, barreira).start();
-		new Turma("Turma 2", 2000, parques, barreira).start();
-		new Turma("Turma 3", 3000, parques, barreira).start();
-
+		for(int i=0; i<nome_parques.length;i++) {
+			parques.add(new Parque(nome_parques[i]));			
+		}
+		
+		for (int i = 0; i < nome_turmas.length; i++) {
+			new Turma(nome_turmas[i], tempo_turma[i], parques, barreira).start();			
+		}
 	}
 }
